@@ -27,7 +27,7 @@ function peticion_ciudad($url){
 
 }
 function peticion_localidad($urlprovincia){
-	
+
 	$array_localidad = array();
 
 	$response_xml_data = file_get_contents($urlprovincia);
@@ -50,7 +50,7 @@ function peticion_localidad($urlprovincia){
 
 
 
-function data_secuence_value($valor,$array_ciudad,$data){
+function data_secuence_value($valor,$array_localidad,$data){
 
 	$tipo = $data-> location -> var[$valor];
 	
@@ -75,8 +75,8 @@ function data_secuence_value($valor,$array_ciudad,$data){
 	  	
 	}
 
-	$array_ciudad[(string)$tipo -> name] = $array_temp_min;
+	$array_localidad[(string)$tipo -> name] = $array_temp_min;
 
-	return $array_ciudad;
+	return $array_localidad;
 }
 ?>

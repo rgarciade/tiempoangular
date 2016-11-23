@@ -9,57 +9,108 @@ include "database/conect.php";
 
 $conn = conectar();
 mysqli_set_charset($conn,"utf8");
+
 $comunidades_array = array();
- $response_xml_data = file_get_contents(
-"http://api.tiempo.com/index.php?api_lang=es&pais=18&affiliate_id=lz92tk47tteo"
-);
- if($response_xml_data){
-		// echo "read";
-
-
-		$data = simplexml_load_string($response_xml_data);
-
-
-		$comunidadesxml = $data-> location -> data;
+$response_xml_data= false;
+$funcion = 1;
 
 
 
-		//echo count ($comunidadesxml );
-		for ($i=0; $i < count ($comunidadesxml ); $i++) { 
-			$name = (string)($comunidadesxml[$i] -> name[0]);
-			$url = (string)($comunidadesxml[$i] -> url[0]);
-			$comunidades_array[$name] = $url."&affiliate_id=lz92tk47tteo";
+
+
+
+
+switch ($funcion) {
+	case 0:
+		$response_xml_data = file_get_contents("http://api.tiempo.com/index.php?api_lang=es&pais=18&affiliate_id=lz92tk47tteo");
+
+		if($response_xml_data){
+			
+
+
+			$data = simplexml_load_string($response_xml_data);
+
+
+			$comunidadesxml = $data-> location -> data;
+
+
+
+			
+			for ($i=0; $i < count ($comunidadesxml ); $i++) { 
+				$name = (string)($comunidadesxml[$i] -> name[0]);
+				$url = (string)($comunidadesxml[$i] -> url[0]);
+				$comunidades_array[$name] = $url."&affiliate_id=lz92tk47tteo";
+
+			}
+
+			first_sincro_provincias($comunidades_array,$conn);
+
+
+			
+
+
+			foreach ($comunidades_array as $key => $value) {
+				
+				//echo "provincias".$key."<br>";
+				
+				$localidad = peticion_localidad($value);
+				
+				//print_r($localidad);
+				
+				
+				$idprovincia = take_id_provincia($key,$conn);
+				first_sincro_localidades($localidad,$idprovincia,$conn);
+
+			}
+
 
 		}
+		break;
+	
+	case 1:
 
-		first_sincro_provincias($comunidades_array,$conn);
+		take_dates_localidades("http://api.tiempo.com/index.php?api_lang=es&localidad=994&affiliate_id=lz92tk47tteo");
 
+		break;
+}
 
-		//echo ($comunidades_array['Álava']);
-		//$localidad = array();
+function take_dates_localidades($url){
 
+	$response_xml_data = file_get_contents($url);
 
-		$localidad = peticion_localidad($comunidades_array['Álava']);
-		//print_r($localidad);
-		$idprovincia = take_id_provincia('Álava',$conn);
-		//echo $idprovincia;
-
-
-		first_sincro_localidades($localidad,$idprovincia,$conn);
-
-		//var_dump($comunidades_array['Álava']);
-		//var_dump($localidad);
-		//first_sincro($comunidades_array,"localidad");
-
-		// print_r($localidad["Añana"]);
-	//$array_ciudad =  peticion_ciudad($localidad["Añana"]);
-
-		//$comunidades_array_datos;
-		
-
- }
+		if($response_xml_data){
+			
 
 
+			$data = simplexml_load_string($response_xml_data);
+
+			$data1 = $data;
+
+			$data = $data -> location -> var[0];
+
+			$name = $data -> name;
+			$forecast = $data -> data -> forecast;
+			echo $name ;
+
+			$array_localidad = array();
+			$contador=0;
+
+			count($data1 -> location -> var);
+ 			foreach ($data1 -> location -> var as $key => $value) {
+ 				$array_localidad= data_secuence_value($contador,$array_localidad,$data1);
+ 				
+ 				echo "<br>".$contador;
+ 				$contador++;
+ 			}
+ 				
+ 			
+			
+			print_r($array_localidad);
+			//print_r($data1);
+
+
+		}
+}
 
 
 function first_sincro_localidades($array,$idprovincia,$conn){
@@ -70,8 +121,8 @@ function first_sincro_localidades($array,$idprovincia,$conn){
  	
 	foreach ($array as $key => $value) {
 		
-		echo "<br>".$key;
-		echo "<br>".$value;
+		//echo "<br>".$key;
+		//echo "<br>".$value;
 
 		$sentencia1 = mysqli_prepare($conn, $consulta1);
 
@@ -88,12 +139,6 @@ function first_sincro_localidades($array,$idprovincia,$conn){
 
 
 }
-
-
-
-
-
-
 
 
 
