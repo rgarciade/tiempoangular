@@ -4,7 +4,7 @@
 
 include "recoger.php";
 include "funcionesdias.php";
-include "database/conect.php";
+include "../database/conect.php";
 
 
 $conn = conectar();
@@ -18,10 +18,9 @@ $funcion = 1;
 
 
 
+if($funcion == 0){
 
-
-switch ($funcion) {
-	case 0:
+//añadir borrar todo de la base de datos
 		$response_xml_data = file_get_contents("http://api.tiempo.com/index.php?api_lang=es&pais=18&affiliate_id=lz92tk47tteo");
 
 		if($response_xml_data){
@@ -63,16 +62,26 @@ switch ($funcion) {
 
 			}
 
-
+			//añadir funcion 1  
 		}
-		break;
-	
-	case 1:
 
-		take_dates_localidades("http://api.tiempo.com/index.php?api_lang=es&localidad=994&affiliate_id=lz92tk47tteo");
 
-		break;
 }
+
+		
+
+		//comprovar menor (select)  
+		//borrar dias anteriores
+
+		//$array_localidad = take_dates_localidades("http://api.tiempo.com/index.php?api_lang=es&localidad=994&affiliate_id=lz92tk47tteo");
+
+		//print_r($array_localidad);
+
+		//insertar o updatear
+		//comvertir todo esto en funcion para lanzarlo en funcion 0
+		
+
+
 
 function take_dates_localidades($url){
 
@@ -90,7 +99,7 @@ function take_dates_localidades($url){
 
 			$name = $data -> name;
 			$forecast = $data -> data -> forecast;
-			echo $name ;
+			//echo $name ;
 
 			$array_localidad = array();
 			$contador=0;
@@ -99,17 +108,18 @@ function take_dates_localidades($url){
  			foreach ($data1 -> location -> var as $key => $value) {
  				$array_localidad= data_secuence_value($contador,$array_localidad,$data1);
  				
- 				echo "<br>".$contador;
+ 				//echo "<br>".$contador;
  				$contador++;
  			}
  				
  			
 			
-			print_r($array_localidad);
+			//print_r($array_localidad);
 			//print_r($data1);
 
 
 		}
+		return $array_localidad;
 }
 
 
@@ -141,31 +151,49 @@ function first_sincro_localidades($array,$idprovincia,$conn){
 }
 
 
+function take_url_localidad($name,$conn){
 
-
-function take_id_provincia($name,$conn){
-//$name = "Burgos";
-$stmt = mysqli_prepare($conn, "SELECT id FROM provincias where nombre = ?");
+	$stmt = mysqli_prepare($conn, "SELECT url FROM localidades where nombre = ?");
 
      mysqli_stmt_bind_param($stmt, "s", $name);  
 
-    /* execute query */
+    
     mysqli_stmt_execute($stmt);
-    /* bind result variables */
-    mysqli_stmt_bind_result($stmt, $id);
-    /* fetch value */
+  
+    mysqli_stmt_bind_result($stmt, $url);
+  
     mysqli_stmt_fetch($stmt);
-    /* Alternative, use a while:
-    while (mysqli_stmt_fetch($stmt)) {
-        // use $col1 and $col2 
-    }
-    */
-    /* use $col1 and $col2 */
-  //  echo "aa".$id;
-    /* close statement */
+
     mysqli_stmt_close($stmt);
 
-return $id;
+return $url;
+}
+
+
+
+function take_id_provincia($name,$conn){
+	//$name = "Burgos";
+	$stmt = mysqli_prepare($conn, "SELECT id FROM provincias where nombre = ?");
+
+	     mysqli_stmt_bind_param($stmt, "s", $name);  
+
+	    /* execute query */
+	    mysqli_stmt_execute($stmt);
+	    /* bind result variables */
+	    mysqli_stmt_bind_result($stmt, $id);
+	    /* fetch value */
+	    mysqli_stmt_fetch($stmt);
+	    /* Alternative, use a while:
+	    while (mysqli_stmt_fetch($stmt)) {
+	        // use $col1 and $col2 
+	    }
+	    */
+	    /* use $col1 and $col2 */
+	  //  echo "aa".$id;
+	    /* close statement */
+	    mysqli_stmt_close($stmt);
+
+	return $id;
 }
 
 
