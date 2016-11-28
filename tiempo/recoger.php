@@ -40,7 +40,6 @@ function peticion_localidad($urlprovincia){
 			$name = (string)($localidadxml[$i] -> name[0]);
 			$url = (string)($localidadxml[$i] -> url[0]);
 			$localidad_array[$name] = $url."&affiliate_id=lz92tk47tteo";
-
 		}
 
 

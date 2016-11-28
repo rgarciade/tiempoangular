@@ -39,7 +39,7 @@
 				var respuesta = JSON.parse(respuesta);
 							
 				console.log(respuesta);
-				debugger
+				
 				
 			}
 			
