@@ -1,5 +1,5 @@
 
-<?php include "localidades.php"; ?>
+<?php //include "localidades.php"; ?>
 
 
  <!DOCTYPE html>
@@ -16,18 +16,57 @@
 			var name= document.getElementById('nombre').value;
 			console.log(name);
 			
-		$.ajax({
-			type:'POST',
-			url:'../tiempo/takeurllocalidad.php',
-			data:{name :name},
-			success:function(respuesta) {
-				console.log(respuesta);
+			$.ajax({
+				type:'POST',
+				url:'../tiempo/takeurllocalidad.php',
+				data:{name :name},
+				success:function(respuesta) {
+					console.log(respuesta);
 
-				 var datos = takedatos(respuesta);
-			}
-			
-		});
+					 var datos = takedatos(respuesta);
+				}
+				
+			});
 		}
+
+		function cogeeer(){
+			var name= document.getElementById('nombre').value;
+
+			if(name.length == 3 ){
+				console.log(name);
+				
+				$.ajax({
+					type:'POST',
+					url:'localidades.php',
+					data:{texto :name},
+					success:function(respuesta) {
+						console.log(respuesta);
+
+							var elemento = document.getElementById('nombre');
+				//debugger
+							
+							new Awesomplete(elemento,{
+								list: JSON.parse(respuesta),
+
+							});
+						
+					}
+					
+				});
+
+				focuss();
+
+			
+			}
+
+			
+		}
+		function focuss(){
+			//console.log("caca");
+			setTimeout(function(){$("#nombre").focus()}, 100);
+		
+		}
+
 
 		function takedatos(urlsend){
 			//console.log(urlsend);
@@ -42,26 +81,27 @@
 				
 				
 			}
+
 			
 			});
+
 		}
+
+
+
 
 
 
 	</script>
  </head>
- <body>
+ <body >
  	
- <input  class="form-control " id="nombre" name="nombre"  class="mayusculas" required>
+ <input  class="form-control " id="nombre" name="nombre"  onkeyup="cogeeer()" class="mayusculas" required>
  <button onclick="taketiempo();"  >ver tiempo</button>
+ 
 	<script>
 	
-			var elemento = document.getElementById('nombre');
-			
-			new Awesomplete(elemento,{
-				list: arraylocalidadesJS,
 
-			});
 	</script>
 
 

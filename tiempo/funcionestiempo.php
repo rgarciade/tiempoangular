@@ -91,8 +91,6 @@ function first_sincro_localidades($array,$idprovincia,$conn){
 			
 		}
 
-
-
 }
 
 
@@ -100,16 +98,16 @@ function take_url_localidad($name,$conn){
 
 	$stmt = mysqli_prepare($conn, "SELECT url FROM localidades where nombre = ?");
 
-     mysqli_stmt_bind_param($stmt, "s", $name);  
+	mysqli_stmt_bind_param($stmt, "s", $name);  
 
-    
-    mysqli_stmt_execute($stmt);
-  
-    mysqli_stmt_bind_result($stmt, $url);
-  
-    mysqli_stmt_fetch($stmt);
 
-    mysqli_stmt_close($stmt);
+	mysqli_stmt_execute($stmt);
+
+	mysqli_stmt_bind_result($stmt, $url);
+
+	mysqli_stmt_fetch($stmt);
+
+	mysqli_stmt_close($stmt);
 
 return $url;
 }
@@ -120,15 +118,15 @@ function take_id_provincia($name,$conn){
 
 	$stmt = mysqli_prepare($conn, "SELECT id FROM provincias where nombre = ?");
 
-	     mysqli_stmt_bind_param($stmt, "s", $name);  
+	mysqli_stmt_bind_param($stmt, "s", $name);  
 
 
-	    mysqli_stmt_execute($stmt);
-	    mysqli_stmt_bind_result($stmt, $id);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_bind_result($stmt, $id);
 
-	    mysqli_stmt_fetch($stmt);
+	mysqli_stmt_fetch($stmt);
 
-	    mysqli_stmt_close($stmt);
+	mysqli_stmt_close($stmt);
 
 	return $id;
 
@@ -145,6 +143,7 @@ function first_sincro_provincias($array,$conn){
 		$sentencia = mysqli_prepare($conn, $consulta);
 
 		$key = (string)$key;
+
 		mysqli_stmt_bind_param($sentencia, "ss",  $value, $key);
 
 

@@ -9,7 +9,6 @@ $url =$_POST['urlsend'];
 		if($response_xml_data){
 			
 
-
 			$data = simplexml_load_string($response_xml_data);
 
 			$data1 = $data;
@@ -31,8 +30,7 @@ $url =$_POST['urlsend'];
  				$contador++;
  			}
  				
- 			
-			
+ 					
 			//print_r($array_localidad);
 			//print_r($data1);
 
@@ -40,6 +38,5 @@ $url =$_POST['urlsend'];
 		}
 
 		echo json_encode($array_localidad);
-
 
  ?>
