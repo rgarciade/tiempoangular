@@ -1,1 +1,23 @@
 <p>usamos datos xml de <a href="http://api.tiempo.com/)">http://api.tiempo.com/)</a></p>
+
+
+<!DOCTYPE html>
+<html lang="es" ng-app="apptiempo">
+<head>
+	<meta charset="UTF-8">
+	<title>pagina principal</title>
+	<script src="../includes/angular.min.js"></script>
+	<script src="../controlers/controlerindex.js"></script>
+
+ 	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="../includes/awesomplete-gh-pages/awesomplete.css" >
+	<script src="../includes/awesomplete-gh-pages/awesomplete.js"></script>
+</head>
+<body ng-controller="mostrar">
+
+	<input   id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()"class="mayusculas" required>
+ <button ng-click="taketiempo();"  >ver tiempo</button>
+
+		{{"estas en"+ nombre +"="+cuenta}}
+</body>
+</html>

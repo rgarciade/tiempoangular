@@ -1,8 +1,14 @@
 <?php 
 include_once "../database/conect.php";
 $conn = conectar();
-	$name = $_POST["name"];
-	//echo $name;
+//	$name = $_POST["name"];
+
+$postdata = file_get_contents("php://input");
+$name = json_decode($postdata);
+
+(string)$name = $name -> name;
+
+
 	$stmt = mysqli_prepare($conn, "SELECT url FROM localidades where nombre = ?");
 
      mysqli_stmt_bind_param($stmt, "s", $name);  

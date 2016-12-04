@@ -1,12 +1,15 @@
 <?php 
 include_once"../database/conect.php" ; 
 
-if (isset($_POST["texto"])) {
+/*if (isset($_POST["texto"])) {
      $texto = $_POST["texto"];
 }else{  
     $texto = "ç";
-}
+}*/
+$postdata = file_get_contents("php://input");
+$texto = json_decode($postdata);
 
+(string)$texto = $texto -> texto;
 
 $conn = conectar();
 $arraylocalidades = array();

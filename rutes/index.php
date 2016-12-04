@@ -47,34 +47,36 @@
 							
 							new Awesomplete(elemento,{
 								list: JSON.parse(respuesta),
-
+								minChar: 3,
+								maxItems: 8
 							});
 						
 					}
 					
 				});
 
-				focuss();
+				focuss('nombre');
 
 			
 			}
-
 			
 		}
-		function focuss(){
+		function focuss(id){
 			//console.log("caca");
-			setTimeout(function(){$("#nombre").focus()}, 100);
+			setTimeout(function(){$("#"+id).focus()}, 100);
 		
 		}
 
 
 		function takedatos(urlsend){
 			//console.log(urlsend);
+			debugger
 			$.ajax({
 			type:'POST',
 			url:'../tiempo/takeldateslocalidades.php',
 			data:{urlsend : urlsend},
 			success:function(respuesta) {
+				debugger
 				var respuesta = JSON.parse(respuesta);
 							
 				console.log(respuesta);

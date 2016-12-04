@@ -1,6 +1,6 @@
 <?php include "funcionestiempo.php";
 
-$funcion = 1;
+$funcion = 0;
 
 if($funcion == 0){
 

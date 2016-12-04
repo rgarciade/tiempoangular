@@ -1,6 +1,14 @@
 <?php 
 include "funcionestiempo.php";
-$url =$_POST['urlsend'];
+//$url =$_POST['urlsend'];
+
+$postdata = file_get_contents("php://input");
+$url = json_decode($postdata);
+
+(string)$url = $url -> urlsend;
+
+
+
 $url2 =$url."&v=2.0&h=1";
 //echo $url;
 
