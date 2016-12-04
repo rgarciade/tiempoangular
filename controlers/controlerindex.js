@@ -1,20 +1,20 @@
 angular.module("apptiempo",[])
-.controller("mostrar",["$scope","$http",function(c1,$http){
-	c1.nombre="";
-	c1.cuenta = c1.nombre.length;
+.controller("mostrar",["$scope","$http",function(interno,$http){
+	interno.nombre="";
+	interno.cuenta = interno.nombre.length;
 
 
 
-	c1.cogeeer = function(){
+	interno.cogeeer = function(){
 
 
-				if(c1.nombre.length == 3  ){
+				if(interno.nombre.length == 3  ){
 				
-				console.log(c1.nombre);
+				console.log(interno.nombre);
 				//debugger
 				$http.post("localidades.php",
 					{
-					texto :c1.nombre
+					texto :interno.nombre
 					})
 					.success(function(data) {
 						//debugger
@@ -34,13 +34,13 @@ angular.module("apptiempo",[])
 								});	
 					})
 
-				c1.focuss('nombre');
+				interno.focuss('nombre');
 			}
 
 
 	}
 
-	c1.takedatos = function(urlsend){
+	interno.takedatos = function(urlsend){
 			//console.log(urlsend);
 			$http.post('../tiempo/takeldateslocalidades.php',
 			{urlsend : urlsend})
@@ -53,7 +53,7 @@ angular.module("apptiempo",[])
 			})
 
 		}
-	c1.taketiempo = function(){
+	interno.taketiempo = function(){
 			var name= document.getElementById('nombre').value;
 			debugger
 			$http.post(
@@ -62,7 +62,7 @@ angular.module("apptiempo",[])
 				.success(function(respuesta) {
 					console.log(respuesta);
 					debugger
-					 var datos = c1.takedatos(respuesta);
+					 var datos = interno.takedatos(respuesta);
 				})
 				
 			
@@ -70,16 +70,16 @@ angular.module("apptiempo",[])
 
 
 
-	c1.cogeeerold = function(){
+	interno.cogeeerold = function(){
 			
-			if(c1.nombre.length == 3  ){
+			if(interno.nombre.length == 3  ){
 				
-				console.log(c1.nombre);
+				console.log(interno.nombre);
 				
 				$.ajax({
 					type:'POST',
 					url:'localidades.php',
-					data:{texto :c1.nombre},
+					data:{texto :interno.nombre},
 					success:function(respuesta) {
 						debugger
 						console.log(respuesta);
@@ -98,11 +98,11 @@ angular.module("apptiempo",[])
 								});	
 					}	
 				});
-				c1.focuss('nombre');
+				interno.focuss('nombre');
 			}
 
 	}
-	c1.focuss = function(id){
+	interno.focuss = function(id){
 			setTimeout(function(){$("#"+id).focus()}, 100);		
 	}
 }]);
