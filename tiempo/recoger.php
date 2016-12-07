@@ -72,12 +72,16 @@ function data_secuence_value($valor,$array_localidad,$data){
 
 		if($countdias == 0){
 			$array_temp_min[$dia] = $temperatura; 
+			$array_temp_min["id".$dia] = (string)$value['id'];
 		}else{
 			$array_temp_min[$dia] = $temperatura; 
+			$array_temp_min["id".$dia] = (string)$value['id'];
 			
 		}
 		$countdias++;
-	  	
+		
+			
+
 	}
 
 	$array_localidad[(string)$tipo -> name] = $array_temp_min;

@@ -67,7 +67,7 @@
 
 
 <div ng-if="actual">
-<div  ng-repeat=" x in respuesta['Variable Símbolo día']">
+<div  ng-repeat=" x in respuesta['Variable Símbolo día'] ">
 		
 <button ng-click="mostrarinferior(x);">{{x}}</button>
 
@@ -76,7 +76,8 @@
 </div>
 {{"dia="+dsemana}}
 --------------------------
-<img src="../iconos/tiempo-weather/galeria5/{{diaconcreto.simvolo}}.png" alt=""><br>
+<br>
+<img src="../iconos/tiempo-weather/galeria5/{{diaconcreto.simbolo}}.png" alt=""><br>
 {{diaconcreto.definicion}}<br>
 {{"t maxima="+diaconcreto.maxima}}<br>
 {{"t minima="+diaconcreto.minima}}<br>
