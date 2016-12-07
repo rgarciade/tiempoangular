@@ -1,4 +1,4 @@
-<p>usamos datos xml de <a href="http://api.tiempo.com/)">http://api.tiempo.com/)</a></p>
+
 
 
 <!DOCTYPE html>
@@ -12,12 +12,77 @@
  	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
  	<link rel="stylesheet" type="text/css" href="../includes/awesomplete-gh-pages/awesomplete.css" >
 	<script src="../includes/awesomplete-gh-pages/awesomplete.js"></script>
+	<link rel="stylesheet" href="../includes/bootstrap-3.3.7-dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+	</style>
 </head>
 <body ng-controller="mostrar">
 
-	<input   id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()"class="mayusculas" required>
- <button ng-click="taketiempo();"  >ver tiempo</button>
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active"><a href="#">Busca tiempo</a></li>
+		<li role="presentation"><a href="">Ultimas busquedas</a></li>
+	</ul>
 
-		{{"estas en"+ nombre +"="+cuenta}}
+	<input   id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()"class="mayusculas" required>
+	<button ng-click="taketiempo();" class="btn btn-info" ><span class="glyphicon glyphicon-search" /></button><br>
+
+<!--
+<div>
+<div class="row">
+	<div class="col-lg-4"/></div>
+	<div class="col-lg-4"/>
+		<div class="input-group ">
+			<input type="text" class="form-control" placeholder="Search for..." id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()">
+				<span class="input-group-btn">
+				<button ng-click="taketiempo();"  class="btn btn-info" type="button"><span class="glyphicon glyphicon-search" /></button>
+			</span>
+		</div>
+	</div>
+	<div class="col-lg-4"/></div>
+</div>
+</div>
+
+-->
+
+
+
+
+
+
+	{{"estas en"+ nombre +"="}}<br>
+	{{"hora actual = "+ hora}}<br>
+	{{"temp max : "+ respuesta.dia.tempmax}}<br>
+	{{"temp minima : "+ respuesta.dia.tempmin}}<br>
+	{{"temperatura : "+ actual.temp}}<br>
+
+	
+	{{"value: "+ actual.symbol["value"]}}<br><img src="../iconos/tiempo-weather/galeria5/{{ actual.symbol['value']}}.png" alt="">
+	{{"symbol : "+ actual.symbol["desc"]}}<br>
+	{{"viento : "+ actual.wind["value"]}}<br>
+	{{"lluvia : "+ actual.rain["value"]}}<br>
+	{{"nuves : "+ actual.clouds["value"]}}<br>
+	{{periodo}}{{"luna =" + respuesta.dia.moon.dec}}<img src="../iconos/luna-moon/{{ respuesta.dia.moon.symbol}}.png" alt=""><br>
+
+----------------------------
+
+
+<div ng-if="actual">
+<div  ng-repeat=" x in respuesta['Variable Símbolo día']">
+		
+<button ng-click="mostrarinferior(x);">{{x}}</button>
+
+</div>
+
+</div>
+{{"dia="+dsemana}}
+--------------------------
+<img src="../iconos/tiempo-weather/galeria5/{{diaconcreto.simvolo}}.png" alt=""><br>
+{{diaconcreto.definicion}}<br>
+{{"t maxima="+diaconcreto.maxima}}<br>
+{{"t minima="+diaconcreto.minima}}<br>
+{{"="+diaconcreto.simvolo}}<br>
+{{"viento =="+diaconcreto.viento}}<br>
+{{"nombre ="+diaconcreto.nombre}}<br>
+<p id="info" >usamos datos xml de <a href="http://api.tiempo.com/)">http://api.tiempo.com/)</a></p>	
 </body>
 </html>

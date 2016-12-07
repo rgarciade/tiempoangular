@@ -38,6 +38,7 @@ function peticion_localidad($urlprovincia){
 
 		for ($i=0; $i < count ($localidadxml ); $i++) { 
 			$name = (string)($localidadxml[$i] -> name[0]);
+			$name = quitar_tildes($name);
 			$url = (string)($localidadxml[$i] -> url[0]);
 			$localidad_array[$name] = $url."&affiliate_id=lz92tk47tteo";
 		}
@@ -47,7 +48,12 @@ function peticion_localidad($urlprovincia){
  }
 
 
-
+function quitar_tildes($cadena) {
+$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+$texto = str_replace($no_permitidas, $permitidas ,$cadena);
+return $texto;
+}
 
 function data_secuence_value($valor,$array_localidad,$data){
 
@@ -65,9 +71,9 @@ function data_secuence_value($valor,$array_localidad,$data){
 		$temperatura = (string)$value['value'];
 
 		if($countdias == 0){
-			$array_temp_min[date('Y-m-d')] = $temperatura; 
+			$array_temp_min[$dia] = $temperatura; 
 		}else{
-			$array_temp_min[sumarndias(date('Y-m-d'),$countdias)] = $temperatura; 
+			$array_temp_min[$dia] = $temperatura; 
 			
 		}
 		$countdias++;

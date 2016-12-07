@@ -5,7 +5,8 @@ include "funcionestiempo.php";
 $postdata = file_get_contents("php://input");
 $url = json_decode($postdata);
 
-(string)$url = $url -> urlsend;
+(string)$url = $url
+ -> urlsend;
 
 
 
@@ -79,6 +80,10 @@ $response_xml_data = file_get_contents($url2);
 			$arraydia["moon"]["out"] =  (string)$day -> moon['out'];
 			$arraydia["moon"]["dec"] =  (string)$day -> moon['desc'];
 			$arraydia["moon"]["symbol"] =  (string)$day -> moon['symbol'];
+
+			$arraydia["hora_local"] =  (string)$day -> local_info['local_time'];
+
+			
 			
 			foreach ($day -> hour as $key => $value) {
 
