@@ -1,10 +1,10 @@
 <?php 
+$postdata = file_get_contents("php://input");
+$name = json_decode($postdata);
 include_once "../database/conect.php";
 $conn = conectar();
 //	$name = $_POST["name"];
 
-$postdata = file_get_contents("php://input");
-$name = json_decode($postdata);
 
 (string)$name = $name -> name;
 

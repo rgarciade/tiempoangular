@@ -1,0 +1,15 @@
+body {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+   font-family: fantasy;
+   -webkit-text-fill-color: yellowgreen;
+-webkit-text-stroke: 1px black;
+	overflow-x: hidden !important;
+	
+
+}

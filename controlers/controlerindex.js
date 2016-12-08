@@ -1,5 +1,6 @@
 angular.module("apptiempo",[])
 .controller("mostrar",["$scope","$http",function(interno,$http){
+	interno.periodo =  "comun";
 	interno.nombre="";
 	interno.cuenta = interno.nombre.length;
 	interno.respuesta = "caca";
@@ -7,6 +8,8 @@ angular.module("apptiempo",[])
 	interno.respuesta = false;
 	interno.dsemana = "hoy";
 	interno.diaconcreto =[];
+	interno.proximas = [];
+	interno.lugarbusqueda = "";
 
 	interno.mostrarinferior = function(mdia){
 		debugger
@@ -32,6 +35,55 @@ angular.module("apptiempo",[])
 		interno.diaconcreto.nombre = mdia;
 		debugger
 
+	}
+	interno.proximas_horas =function(){
+		
+		 interno.control_hora_ultima = "";
+		 interno.datos_proximashoras = [];
+		
+		interno.control_hora_ultima = interno.respuesta.dia.hora_local[0] + interno.respuesta.dia.hora_local[1] ;
+		
+		
+		for (var i = 0; i < 6; i++) {
+			
+
+			
+			interno.datos_proximashora = {};
+			interno.datos_proximashora
+
+			interno.datos_proximashora.hora = null; 
+			interno.dato_dias  =  interno.respuesta.dia.hour[interno.control_hora_ultima + ":00"];
+
+			interno.datos_proximashora.hora = interno.control_hora_ultima + ":00";
+			interno.datos_proximashora.datos = interno.dato_dias ;
+
+			let auxihora = interno.datos_proximashora.hora[1] +interno.datos_proximashora.hora[2];
+
+			if(interno.sol < auxihora ){
+				interno.datos_proximashora.datos.symbol.value = "noche/"+interno.datos_proximashora.datos.symbol.value;
+			}else{
+				interno.datos_proximashora.datos.symbol.value = "dia/"+interno.datos_proximashora.datos.symbol.value;
+			}
+
+
+				
+
+			
+			
+			interno.datos_proximashoras.push(interno.datos_proximashora);
+
+			if(interno.control_hora_ultima != 24){
+				interno.control_hora_ultima++;
+			}else{
+				interno.control_hora_ultima= 01;
+			}
+
+			//al terminar si es menor de 24
+		}
+
+		
+		console.log(interno.datos_proximashoras);
+		debugger
 	}
 	interno.cogeeer = function(){
 		
@@ -78,6 +130,7 @@ angular.module("apptiempo",[])
 			$http.post('../tiempo/takeldateslocalidades.php',
 			{urlsend : urlsend})
 			.success(function(respuesta) {
+				interno.diaconcreto =[];
 				debugger
 				if(respuesta != ""){
 					
@@ -100,22 +153,24 @@ angular.module("apptiempo",[])
 
 
 				if(interno.sol < respuesta.dia["hora_local"]){
-					interno.periodo = "De noche";
-					console.log("true");
+					interno.periodo = "noche";
+					//console.log("true");
 				}else{
-					interno.periodo = "De Dia";
-					console.log("false");
+					interno.periodo = "dia";
+					//console.log("false");
 				}
 
 					debugger						
 				console.log(respuesta);
-				
+				//interno.mostrarinferior(2);
+				interno.proximas_horas();
 				
 			})
 
 		}
 	interno.taketiempo = function(){
 			var name= document.getElementById('nombre').value;
+			interno.lugarbusqueda = name;
 			//debugger
 			$http.post(
 				"../tiempo/takeurllocalidad.php",
@@ -123,7 +178,8 @@ angular.module("apptiempo",[])
 				.success(function(respuesta) {
 					console.log(respuesta);
 					
-					 var datos = interno.takedatos(respuesta);
+					 var datos = interno.takedatos(respuesta);debugger
+					
 				})
 				
 			
