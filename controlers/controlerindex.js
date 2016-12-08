@@ -37,7 +37,7 @@ angular.module("apptiempo",[])
 
 	}
 	interno.proximas_horas =function(){
-		
+		debugger
 		 interno.control_hora_ultima = "";
 		 interno.datos_proximashoras = [];
 		
@@ -57,9 +57,10 @@ angular.module("apptiempo",[])
 			interno.datos_proximashora.hora = interno.control_hora_ultima + ":00";
 			interno.datos_proximashora.datos = interno.dato_dias ;
 
-			let auxihora = interno.datos_proximashora.hora[1] +interno.datos_proximashora.hora[2];
-
-			if(interno.sol < auxihora ){
+			
+			debugger
+			if(interno.sol < interno.datos_proximashora.hora ){
+				debugger
 				interno.datos_proximashora.datos.symbol.value = "noche/"+interno.datos_proximashora.datos.symbol.value;
 			}else{
 				interno.datos_proximashora.datos.symbol.value = "dia/"+interno.datos_proximashora.datos.symbol.value;
@@ -153,6 +154,7 @@ angular.module("apptiempo",[])
 
 
 				if(interno.sol < respuesta.dia["hora_local"]){
+
 					interno.periodo = "noche";
 					//console.log("true");
 				}else{
