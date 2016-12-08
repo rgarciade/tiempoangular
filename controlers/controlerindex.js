@@ -11,6 +11,12 @@ angular.module("apptiempo",[])
 	interno.proximas = [];
 	interno.lugarbusqueda = "";
 
+
+	var d = new Date();
+
+	interno.hora_actual=d.getHours()+":"+d.getMinutes();
+	console.log(interno.hora_actual);
+
 	interno.mostrarinferior = function(mdia){
 		debugger
 		interno.dsemana = mdia; 
@@ -41,44 +47,56 @@ angular.module("apptiempo",[])
 		 interno.control_hora_ultima = "";
 		 interno.datos_proximashoras = [];
 		
-		interno.control_hora_ultima = interno.respuesta.dia.hora_local[0] + interno.respuesta.dia.hora_local[1] ;
+		interno.control_hora_ultima = interno.hora_actual[0] + interno.hora_actual[1] ;
 		
 		
 		for (var i = 0; i < 6; i++) {
 			
 
-			
-			interno.datos_proximashora = {};
-			interno.datos_proximashora
+			if(interno.control_hora_ultima != null){
+				interno.datos_proximashora = {};
+				interno.datos_proximashora
 
-			interno.datos_proximashora.hora = null; 
-			interno.dato_dias  =  interno.respuesta.dia.hour[interno.control_hora_ultima + ":00"];
+				interno.datos_proximashora.hora = null; 
+				interno.dato_dias  =  interno.respuesta.dia.hour[interno.control_hora_ultima + ":00"];
 
-			interno.datos_proximashora.hora = interno.control_hora_ultima + ":00";
-			interno.datos_proximashora.datos = interno.dato_dias ;
-
-			
-			debugger
-			if(interno.sol < interno.datos_proximashora.hora ){
-				debugger
-				interno.datos_proximashora.datos.symbol.value = "noche/"+interno.datos_proximashora.datos.symbol.value;
-			}else{
-				interno.datos_proximashora.datos.symbol.value = "dia/"+interno.datos_proximashora.datos.symbol.value;
-			}
-
+				interno.datos_proximashora.hora = interno.control_hora_ultima + ":00";
+				interno.datos_proximashora.datos = interno.dato_dias ;
 
 				
+				debugger
+				if(interno.hora_actual > "12:00"){
+					if(interno.sol < interno.hora_actual ){
+						debugger
+						interno.datos_proximashora.datos.symbol.value = "noche/"+interno.datos_proximashora.datos.symbol.value;
+					}else{
+						interno.datos_proximashora.datos.symbol.value = "dia/"+interno.datos_proximashora.datos.symbol.value;
+					}
+				}else{
+					if(interno.luna > interno.hora_actual ){
+						debugger
+						interno.datos_proximashora.datos.symbol.value = "noche/"+interno.datos_proximashora.datos.symbol.value;
+					}else{
+						interno.datos_proximashora.datos.symbol.value = "dia/"+interno.datos_proximashora.datos.symbol.value;
+					}
+				}
 
-			
-			
-			interno.datos_proximashoras.push(interno.datos_proximashora);
 
-			if(interno.control_hora_ultima != 24){
-				interno.control_hora_ultima++;
-			}else{
-				interno.control_hora_ultima= 01;
+					
+
+				
+				
+				interno.datos_proximashoras.push(interno.datos_proximashora);
+
+				if(interno.control_hora_ultima != 24){
+					interno.control_hora_ultima++;
+					console.log(interno.control_hora_ultima);
+				}else{
+					console.log("entraaa");
+					interno.control_hora_ultima= null;
+					console.log(interno.control_hora_ultima);
+				}
 			}
-
 			//al terminar si es menor de 24
 		}
 
@@ -150,16 +168,28 @@ angular.module("apptiempo",[])
 				interno.respuesta = respuesta;
 
 				interno.sol = interno.respuesta.dia.sun.out;
+				interno.luna = interno.respuesta.dia.sun.in;
 
 
+				if(interno.hora_actual > "12:00"){
 
-				if(interno.sol < respuesta.dia["hora_local"]){
+					if(interno.sol < interno.hora_actual){
 
-					interno.periodo = "noche";
-					//console.log("true");
+						interno.periodo = "noche";
+						//console.log("true");
+					}else{
+						interno.periodo = "dia";
+						//console.log("false");
+					}
 				}else{
-					interno.periodo = "dia";
-					//console.log("false");
+					if(interno.luna > interno.hora_actual){
+
+						interno.periodo = "noche";
+						//console.log("true");
+					}else{
+						interno.periodo = "dia";
+						//console.log("false");
+					}
 				}
 
 					debugger						
