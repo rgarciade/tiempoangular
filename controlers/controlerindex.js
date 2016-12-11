@@ -1,4 +1,15 @@
-angular.module("apptiempo",[])
+angular.module("apptiempo", ["ngRoute"])
+.config(function($routeProvider) {
+
+    $routeProvider
+        .when('/', {
+            templateUrl : 'home.html',
+            controller  : 'mostrar'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+})
 .controller("mostrar",["$scope","$http",function(interno,$http){
 	interno.periodo =  "comun";
 	interno.nombre="";
@@ -130,14 +141,22 @@ angular.module("apptiempo",[])
 					
 							
 							if (elemento.autocomplete != "") {
-								var elemento1 = document.getElementsByClassName('Awesomplete')[0];
+
+								var ant = document.getElementById("nombre");
+								var father = document.getElementById("buscagor");
+
+								document.getElementsByClassName("awesomplete")[0].remove();
+
+								buscagor.appendChild(ant); 
+								/*var elemento1 = document.getElementsByClassName('Awesomplete')[0];
 
 								//debugger
 								if (elemento1 != undefined) {
 									
 									elemento1.removeChild(elemento1.children[1]);	
-								}
+								}*/
 							}
+
 								var awe =new Awesomplete(elemento,{
 									list: (data),
 									minChars: 3

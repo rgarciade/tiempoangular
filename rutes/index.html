@@ -1,12 +1,11 @@
-
-
-
 <!DOCTYPE html>
 <html lang="es" ng-app="apptiempo">
 <head>
 	<meta charset="UTF-8">
 	<title>pagina principal</title>
 	<script src="../includes/angular.min.js"></script>
+	 <script src="https://code.angularjs.org/1.6.0/angular-route.min.js"></script>
+	
 	<script src="../controlers/controlerindex.js"></script>
 
  	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
@@ -14,179 +13,12 @@
 	<script src="../includes/awesomplete-gh-pages/awesomplete.js"></script>
 	<link rel="stylesheet" href="../includes/bootstrap-3.3.7-dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="../css/index.css"> 
-	<style>
-	</style>
+	
 </head>
-<body ng-controller="mostrar" background="../fondos/{{periodo}}.jpg">
-<div class="row">
-<div class="col-lg-12">
-	<ul class="nav nav-tabs">
-		<li role="presentation" class="active"><a href="#">Busca tiempo</a></li>
-		<li role="presentation"><a href="">Ultimas busquedas</a></li>
-	</ul>
-</div>
-</div>
+<!--<body ng-controller="mostrar" background="../fondos/{{periodo}}.jpg">-->
 
-<!--
-	<input   id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()"class="mayusculas" required>
-	<button ng-click="taketiempo();" class="btn btn-info" ><span class="glyphicon glyphicon-search" /></button><br>
+<body ng-view ng-controller="mostrar" background="../fondos/{{periodo}}.jpg">
+<div ></div>
 
--->
-
-	<div class="row">
-		<div class="col-lg-4"></div>
-			<div class="col-lg-2"/>
-				
-						<input   id="nombre" name="nombre" ng-model="nombre"  ng-keydown="cogeeer()" size="37"   required>
-			</div>
-			<div class="col-lg-3"/>
-				<button ng-click="taketiempo();" class="btn btn-info" ><span class="glyphicon glyphicon-search" /></button>
-			</div>
-
-
-		<div class="col-lg-3"></div>
-	</div>
-
-
-<div name="todo" ng-if="actual">
-	<h4 >
-<div class="row">
-	<div class="col-lg-4"/></div>
-		<div class="col-lg-4"/>
-			<center>{{"Tiempo en : "+lugarbusqueda}}</center>
-		</div>
-	<div class="col-lg-4"></div>
-</div>
-<div class="row">
-	<div class="col-lg-4"></div>
-	
-		<div class="col-lg-4"/>
-			<center><img src="../iconos/tiempo-weather/galeria5/{{imagentop}}.png" WIDTH=75% HEIGHT=75%><br>
-			<p>temperatura actual :</p><h1>{{ actual.temp +"°"}}</h1></center>
-
-			<center>		
-					<br>{{actual.symbol["desc"]}}<br>	
-			</center>
-		</div>
-	
-	<div class="col-lg-4"></div>
-</div>
-<div class="row">
-	<div class="col-lg-4"></div>
-		<div class="col-lg-2"/>
-
-				<center>	{{" max : "+ respuesta.dia.tempmax +"°"}}</center>
-					
-		</div>
-		<div class="col-lg-2"/>
-
-					
-				<center>	{{" minima : "+ respuesta.dia.tempmin +"°"}}</center>
-		</div>
-	<div class="col-lg-4"></div>
-</div>
-
-<br>
-<div class="row">
-	<div class="col-lg-4"></div>
-		<div class="col-lg-2"/>
-
-					<center>
-					{{"-viento : "+ actual.wind["value"]}}<br>
-					</center>
-					
-				
-					
-		</div>
-		<div class="col-lg-2"/>
-				<center>
-					
-					{{"-lluvia : "+ actual.rain["value"]}}<br>
-					{{"-nuves : "+ actual.clouds["value"]}}<br>
-				</center>	
-				
-		</div>
-	<div class="col-lg-4"></div>
-</div>
-<div class="row">
-	<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<center>
-				{{"-luna: " + respuesta.dia.moon.dec}}<img src="../iconos/luna-moon/{{ respuesta.dia.moon.symbol}}.png" alt=""><br>
-				 {{"-salida del sol :"+luna + " &nbsp&nbsp&nbsp&nbsp -ocaso:"+ sol }}  
-			</center>
-		</div>
-	<div class="col-lg-4"></div>
-</div>
-
-
-
-
-		<!--{{" tiempo en"+ nombre +"="}}<br>
-		{{"hora actual = "+ hora}}<br>-->
-
-
-<div class="row">
-	<h4>
-		<center>
-	<div ng-repeat="y in datos_proximashoras">
-		<div class="col-lg-2">
-			{{y.hora}}
-			<img src="../iconos/tiempo-weather/galeria5/{{y.datos.symbol.value}}.png" alt=""><br>
-			{{"temp = " + y.datos.temp +"°"}}
-			{{"precipitaciones = " +y.datos.rain.value}}
-
-
-		</div>
-		
-	</div>
-	</center>
-	</h4>
-</div>
-
-
-
-	</h4>
-<div class="row">
-	<div class="col-lg-2"></div>
-		<div ng-if="actual">
-			<div  ng-repeat=" x in respuesta['Variable Símbolo día'] ">
-				<div class="col-lg-1"  />	
-					<center>
-						<a href="#concreto"><button ng-if="!$first"  " ng-click="mostrarinferior(x);" type="button" class="btn btn-primary btn-lg " style='width:120px; height:55px'>{{x}}</button></a>
-					<center>
-				</div>
-			</div>
-
-		</div>
-	<div class="col-lg-3"></div>
-</div>
-
-
-	
-	
-
-
-	<br>
-
-	<div id="concreto" ng-if="diaconcreto.maxima"><br>
-		
-
-		<center>
-			<h2>{{dsemana}}<h2>
-			<img src="../iconos/tiempo-weather/galeria5/{{diaconcreto.simbolo}}.png" WIDTH=10% HEIGHT=10%><br><br>
-			{{diaconcreto.definicion}}<br><br>
-			{{"maximas:"+diaconcreto.maxima+"°"}}
-			{{"minimas:"+diaconcreto.minima+"°"}}<br>
-			<br>
-			{{"viento ="+diaconcreto.viento}}<br>
-
-		</center>
-
-
-		<p id="info" >usamos datos xml de <a href="http://api.tiempo.com/)">http://api.tiempo.com/)</a></p>	
-	</div>
-</div>
-</div>
 </body>
 </html>
