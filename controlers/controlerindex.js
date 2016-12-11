@@ -57,7 +57,14 @@ angular.module("apptiempo",[])
 				interno.datos_proximashora = {};
 				interno.datos_proximashora
 
-				interno.datos_proximashora.hora = null; 
+				interno.datos_proximashora.hora = null;
+				
+				if(interno.control_hora_ultima < 10){
+					interno.control_hora_ultima = "0"+interno.control_hora_ultima;
+				}
+
+
+
 				interno.dato_dias  =  interno.respuesta.dia.hour[interno.control_hora_ultima + ":00"];
 
 				interno.datos_proximashora.hora = interno.control_hora_ultima + ":00";
@@ -93,7 +100,7 @@ angular.module("apptiempo",[])
 					console.log(interno.control_hora_ultima);
 				}else{
 					console.log("entraaa");
-					interno.control_hora_ultima= null;
+					interno.control_hora_ultima= 1;
 					console.log(interno.control_hora_ultima);
 				}
 			}
@@ -176,22 +183,24 @@ angular.module("apptiempo",[])
 					if(interno.sol < interno.hora_actual){
 						debugger
 						interno.periodo = "noche";
-						interno.actual.symbol['value'] = "noche/"+interno.actual.symbol['value'];
+						interno.imagentop = "noche/"+interno.actual.symbol['value'];
+						//interno.actual.symbol['value'] = "noche/"+interno.actual.symbol['value'];
 						//console.log("true");
 					}else{
 						interno.periodo = "dia";
-						interno.actual.symbol['value'] = "dia/"+interno.actual.symbol['value'];
+						interno.imagentop = "dia/"+interno.actual.symbol['value'];
+						//interno.actual.symbol['value'] = "dia/"+interno.actual.symbol['value'];
 						//console.log("false");
 					}
 				}else{
 					if(interno.luna > interno.hora_actual){
 
 						interno.periodo = "noche";
-						interno.actual.symbol['value'] = "noche/"+interno.actual.symbol['value'];
+						interno.imagentop = "noche/"+interno.actual.symbol['value'];
 						//console.log("true");
 					}else{
 						interno.periodo = "dia";
-						interno.actual.symbol['value'] = "dia/"+interno.actual.symbol['value'];
+						interno.imagentop = "dia/"+interno.actual.symbol['value'];
 						//console.log("false");
 					}
 				}
