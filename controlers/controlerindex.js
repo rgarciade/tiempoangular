@@ -16,7 +16,7 @@ angular.module("apptiempo",[])
 
 	interno.hora_actual=d.getHours()+":"+d.getMinutes();
 	console.log(interno.hora_actual);
-
+	//interno.hora_actual = "17:59";
 	interno.mostrarinferior = function(mdia){
 		debugger
 		interno.dsemana = mdia; 
@@ -36,7 +36,7 @@ angular.module("apptiempo",[])
 		interno.diaconcreto.definicion = interno.respuesta["Definición de Atmosfera"][contador];
 		interno.diaconcreto.maxima = interno.respuesta["Temperatura máxima"][contador];
 		interno.diaconcreto.minima = interno.respuesta["Temperatura mínima"][contador];
-		interno.diaconcreto.simbolo = interno.respuesta['Variable Símbolo']['id'+contador];
+		interno.diaconcreto.simbolo = "dia/"+interno.respuesta['Variable Símbolo']['id'+contador];
 		interno.diaconcreto.viento = interno.respuesta["Variable Símbolo del Viento"][contador];
 		interno.diaconcreto.nombre = mdia;
 		debugger
@@ -174,20 +174,24 @@ angular.module("apptiempo",[])
 				if(interno.hora_actual > "12:00"){
 
 					if(interno.sol < interno.hora_actual){
-
+						debugger
 						interno.periodo = "noche";
+						interno.actual.symbol['value'] = "noche/"+interno.actual.symbol['value'];
 						//console.log("true");
 					}else{
 						interno.periodo = "dia";
+						interno.actual.symbol['value'] = "dia/"+interno.actual.symbol['value'];
 						//console.log("false");
 					}
 				}else{
 					if(interno.luna > interno.hora_actual){
 
 						interno.periodo = "noche";
+						interno.actual.symbol['value'] = "noche/"+interno.actual.symbol['value'];
 						//console.log("true");
 					}else{
 						interno.periodo = "dia";
+						interno.actual.symbol['value'] = "dia/"+interno.actual.symbol['value'];
 						//console.log("false");
 					}
 				}
@@ -203,14 +207,15 @@ angular.module("apptiempo",[])
 	interno.taketiempo = function(){
 			var name= document.getElementById('nombre').value;
 			interno.lugarbusqueda = name;
-			//debugger
+			debugger
 			$http.post(
 				"../tiempo/takeurllocalidad.php",
 				{name :name})
 				.success(function(respuesta) {
 					console.log(respuesta);
-					
+						
 					 var datos = interno.takedatos(respuesta);debugger
+
 					
 				})
 				

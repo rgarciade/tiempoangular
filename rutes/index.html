@@ -59,14 +59,16 @@
 </div>
 <div class="row">
 	<div class="col-lg-4"></div>
+	
 		<div class="col-lg-4"/>
-			<center><img src="../iconos/tiempo-weather/galeria5/{{periodo}}/{{ actual.symbol['value']}}.png" WIDTH=75% HEIGHT=75%><br>
+			<center><img src="../iconos/tiempo-weather/galeria5/{{ actual.symbol['value']}}.png" WIDTH=75% HEIGHT=75%><br>
 			<p>temperatura actual :</p><h1>{{ actual.temp +"°"}}</h1></center>
 
 			<center>		
 					<br>{{actual.symbol["desc"]}}<br>	
 			</center>
 		</div>
+	
 	<div class="col-lg-4"></div>
 </div>
 <div class="row">
@@ -111,6 +113,7 @@
 		<div class="col-lg-4">
 			<center>
 				{{"-luna: " + respuesta.dia.moon.dec}}<img src="../iconos/luna-moon/{{ respuesta.dia.moon.symbol}}.png" alt=""><br>
+				 {{"-salida del sol :"+luna + " &nbsp&nbsp&nbsp&nbsp -ocaso:"+ sol }}  
 			</center>
 		</div>
 	<div class="col-lg-4"></div>
