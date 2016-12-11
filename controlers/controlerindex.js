@@ -6,6 +6,12 @@ angular.module("apptiempo", ["ngRoute"])
             templateUrl : 'home.html',
             controller  : 'mostrar'
         })
+        .when('/ultimasbusquedas', {
+            templateUrl : 'ultimasbusquedas.html',
+            controller  : 'mostrar'
+        })
+
+        
         .otherwise({
             redirectTo: '/'
         });
