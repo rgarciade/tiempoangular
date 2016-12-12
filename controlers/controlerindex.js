@@ -8,7 +8,7 @@ angular.module("apptiempo", ["ngRoute"])
         })
         .when('/ultimasbusquedas', {
             templateUrl : 'ultimasbusquedas.html',
-            controller  : 'mostrar'
+            controller  : 'ultimas'
         })
 
         
@@ -16,6 +16,42 @@ angular.module("apptiempo", ["ngRoute"])
             redirectTo: '/'
         });
 })
+.controller("ultimas",["$scope","$http",function(internotodo,$http){
+
+
+	 internotodo.arrayTodo = [];
+	 //internotodo.lugarconcreto =[];
+	internotodo.redirigirymostar = function(ultimas){
+
+	document.cookie = "amostrar="+ultimas;
+	 window.location ="#";
+
+	}
+	internotodo.getCookie =function(cname){
+
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length,c.length);
+			}
+		}
+    return "";
+	}
+	
+
+	let result =internotodo.getCookie("busquedas");
+	debugger
+	if(result){
+		console.log(JSON.parse(result));
+		internotodo.arrayTodo = JSON.parse(result);
+
+	}	
+}])
 .controller("mostrar",["$scope","$http",function(interno,$http){
 	interno.periodo =  "comun";
 	interno.nombre="";
@@ -34,6 +70,86 @@ angular.module("apptiempo", ["ngRoute"])
 	interno.hora_actual=d.getHours()+":"+d.getMinutes();
 	console.log(interno.hora_actual);
 	//interno.hora_actual = "17:59";
+
+//cookiesssssssssssssssss
+
+	interno.getCookie =function(cname){
+
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length,c.length);
+			}
+		}
+    return "";
+	}
+	interno.agregarcookiebusquedas = function(elemento){
+		debugger
+		//leer cookie actual
+		let agregar = false;
+		var leer1 =interno.getCookie("busquedas");
+		//comprovar si ya esta en bosquedas
+		var existe = JSON.parse(leer1);
+
+		for (var i = 0; i < existe.length; i++) {
+			
+			if(existe[i] == elemento){
+				agregar = false;
+			}else{
+				agregar = true;
+			}
+			
+		}
+		debugger 
+		if (agregar) {
+			
+			if(leer1 != null && leer1 != ""){
+				debugger
+				//si existe
+				//pasar a json 
+				leer1 = JSON.parse(leer1);
+				//agregar nuevo
+				leer1[leer1.length]= elemento;
+			
+				//pasar a string y guardar
+				document.cookie = "busquedas="+JSON.stringify(leer1);
+			
+			}else{
+				//si no existe
+				leer1 = '["'+elemento+'"]';
+				document.cookie = "busquedas="+leer1;
+				
+			}
+		}
+
+	}
+
+	interno.comprovarredirec = function(){
+
+		 interno.comp = interno.getCookie("amostrar");
+		 debugger
+
+		if(interno.comp != "" && interno.comp != null){
+			debugger;
+			document.getElementById('nombre').value = interno.comp;
+			
+			interno.taketiempo();
+			debugger
+		}
+	}
+
+	//interno.comprovarredirec();
+//fin coookiiiiesss
+
+
+
+
+
 	interno.mostrarinferior = function(mdia){
 		debugger
 		interno.dsemana = mdia; 
@@ -239,8 +355,12 @@ angular.module("apptiempo", ["ngRoute"])
 
 		}
 	interno.taketiempo = function(){
-			var name= document.getElementById('nombre').value;
+
+				var name= document.getElementById('nombre').value;
+			
+
 			interno.lugarbusqueda = name;
+			interno.agregarcookiebusquedas(name);
 			debugger
 			$http.post(
 				"../tiempo/takeurllocalidad.php",
@@ -249,11 +369,13 @@ angular.module("apptiempo", ["ngRoute"])
 					console.log(respuesta);
 						
 					 var datos = interno.takedatos(respuesta);debugger
-
+					 //incluir en cookies
+					 debugger
+					 
 					
 				})
 				
-			
+			document.cookie = 'amostrar=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 		}
 
 
