@@ -91,41 +91,51 @@ angular.module("apptiempo", ["ngRoute"])
 	interno.agregarcookiebusquedas = function(elemento){
 		debugger
 		//leer cookie actual
-		let agregar = false;
+		let agregar = true;
 		var leer1 =interno.getCookie("busquedas");
 		//comprovar si ya esta en bosquedas
-		var existe = JSON.parse(leer1);
 
-		for (var i = 0; i < existe.length; i++) {
-			
-			if(existe[i] == elemento){
-				agregar = false;
-			}else{
-				agregar = true;
-			}
-			
-		}
-		debugger 
-		if (agregar) {
-			
-			if(leer1 != null && leer1 != ""){
-				debugger
-				//si existe
-				//pasar a json 
-				leer1 = JSON.parse(leer1);
-				//agregar nuevo
-				leer1[leer1.length]= elemento;
-			
-				//pasar a string y guardar
-				document.cookie = "busquedas="+JSON.stringify(leer1);
-			
-			}else{
-				//si no existe
-				leer1 = '["'+elemento+'"]';
-				document.cookie = "busquedas="+leer1;
+
+
+		if (leer1 != ""){
+
+			var existe = JSON.parse(leer1);
+
+			debugger
+			for (var i = 0; i < existe.length; i++) {
+				
+				if(existe[i] == elemento){
+					agregar = false;
+				}
 				
 			}
+			debugger 
+			if (agregar) {
+
+				if(leer1 != null && leer1 != ""){
+					debugger
+					//si existe
+					//pasar a json 
+					leer1 = JSON.parse(leer1);
+					//agregar nuevo
+					leer1[leer1.length]= elemento;
+				
+					//pasar a string y guardar
+					document.cookie = "busquedas="+JSON.stringify(leer1);
+				
+				}else{
+					//si no existe
+					leer1 = '["'+elemento+'"]';
+					document.cookie = "busquedas="+leer1;
+					
+				}
+			}
+		}else{
+			leer1 = '["'+elemento+'"]';
+			document.cookie = "busquedas="+leer1;
 		}
+
+
 
 	}
 
