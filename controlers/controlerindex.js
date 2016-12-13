@@ -389,7 +389,7 @@ angular.module("apptiempo", ["ngRoute"])
 			
 
 			interno.lugarbusqueda = name;
-			interno.agregarcookiebusquedas(name);
+			
 			debugger
 			$http.post(
 				"../tiempo/takeurllocalidad.php",
@@ -397,7 +397,12 @@ angular.module("apptiempo", ["ngRoute"])
 				.success(function(respuesta) {
 					console.log(respuesta);
 						
-					 var datos = interno.takedatos(respuesta);debugger
+					 var datos = interno.takedatos(respuesta);
+						if(respuesta != ""){
+							interno.agregarcookiebusquedas(name);
+						}
+						
+					 debugger
 					 //incluir en cookies
 					 debugger
 					 
