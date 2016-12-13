@@ -49,6 +49,7 @@ angular.module("apptiempo", ["ngRoute"])
 	if(result){
 		console.log(JSON.parse(result));
 		internotodo.arrayTodo = JSON.parse(result);
+		internotodo.arrayTodo.reverse();
 
 	}	
 }])
@@ -69,11 +70,17 @@ angular.module("apptiempo", ["ngRoute"])
 
 	interno.hora_actual=d.getHours()+":"+d.getMinutes();
 	debugger
-	interno.hora_actual = "00:21";
+	interno.hora_actual = "10:21";
+
+	if(interno.hora_actual[1] == ":" ){
+		interno.hora_actual = "0" + interno.hora_actual;
+	}
+
 
 	if(interno.hora_actual[0] == 0 && interno.hora_actual[1] == 0 ){
 		interno.hora_actual = "24:" + interno.hora_actual[3] +interno.hora_actual[4]; 
 	}
+
 	console.log(interno.hora_actual);
 
 //cookiesssssssssssssssss
