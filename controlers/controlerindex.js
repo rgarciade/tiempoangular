@@ -68,8 +68,13 @@ angular.module("apptiempo", ["ngRoute"])
 	var d = new Date();
 
 	interno.hora_actual=d.getHours()+":"+d.getMinutes();
+	debugger
+	interno.hora_actual = "00:21";
+
+	if(interno.hora_actual[0] == 0 && interno.hora_actual[1] == 0 ){
+		interno.hora_actual = "24:" + interno.hora_actual[3] +interno.hora_actual[4]; 
+	}
 	console.log(interno.hora_actual);
-	//interno.hora_actual = "17:59";
 
 //cookiesssssssssssssssss
 
@@ -202,9 +207,11 @@ angular.module("apptiempo", ["ngRoute"])
 
 				interno.datos_proximashora.hora = null;
 				
-				if(interno.control_hora_ultima < 10){
-					interno.control_hora_ultima = "0"+interno.control_hora_ultima;
-				}
+				
+
+					if(interno.control_hora_ultima < 10 && i != 0){
+						interno.control_hora_ultima = "0"+interno.control_hora_ultima;
+					}
 
 
 
@@ -319,8 +326,13 @@ angular.module("apptiempo", ["ngRoute"])
 				debugger
 				
 
-				interno.hora = respuesta.dia["hora_local"][0];
-				interno.hora = interno.hora + respuesta.dia["hora_local"][1] + ":00";
+				//interno.hora = respuesta.dia["hora_local"][0];
+				//interno.hora = interno.hora + respuesta.dia["hora_local"][1] + ":00";
+
+				interno.hora = interno.hora_actual[0];
+				interno.hora = interno.hora + interno.hora_actual[1] + ":00";
+
+
 				interno.actual = respuesta.dia.hour[interno.hora];
 				
 				interno.respuesta = respuesta;
